@@ -1,5 +1,5 @@
 /**
- * Central mock data file for CET Sathi
+ * Central mock data file for CETPath
  * All records are fictional demo data for prototype interface demonstration only.
  * No real institution or cutoff is officially represented.
  */

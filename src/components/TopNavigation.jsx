@@ -31,7 +31,7 @@ export default function TopNavigation() {
             <span className="brand-letter">CET</span>
           </div>
           <div className="brand-text-block">
-            <span className="brand-name">CET Sathi</span>
+            <span className="brand-name">CETPath</span>
             <span className="brand-tagline">College planning companion</span>
           </div>
         </div>

@@ -50,5 +50,5 @@ const server = http.createServer((req, res) => {
 
 const PORT = 4173;
 server.listen(PORT, '127.0.0.1', () => {
-  console.log(`CET Sathi prototype server running at http://127.0.0.1:${PORT}`);
+  console.log(`CETPath prototype server running at http://127.0.0.1:${PORT}`);
 });

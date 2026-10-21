@@ -15,7 +15,7 @@ export default function Footer() {
                 <span className="brand-letter">CET</span>
               </div>
               <div className="brand-text-block">
-                <span className="brand-name">CET Sathi</span>
+                <span className="brand-name">CETPath</span>
                 <span className="brand-tagline">Your CET college planning companion</span>
               </div>
             </div>
@@ -63,7 +63,7 @@ export default function Footer() {
             </p>
           </div>
           <div className="footer-meta-line">
-            <span>© 2026 CET Sathi Prototype. All mock records illustrative.</span>
+            <span>© 2026 CETPath Prototype. All mock records illustrative.</span>
             <span>Client-side demonstration · No official verification</span>
           </div>
         </div>

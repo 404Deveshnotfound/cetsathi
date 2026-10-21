@@ -209,7 +209,7 @@ export default function LandingPage() {
         <div className="container">
           <div className="section-head text-center">
             <span className="section-eyebrow">Structured Process</span>
-            <h2 className="section-title">How CET Sathi supports your planning</h2>
+            <h2 className="section-title">How CETPath supports your planning</h2>
             <p className="section-subtitle">
               A transparent 3-step workflow designed to replace confusing spreadsheets.
             </p>

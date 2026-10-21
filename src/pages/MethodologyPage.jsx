@@ -22,7 +22,7 @@ export default function MethodologyPage() {
             <article className="method-article card">
               <h2 className="article-title">1. What our decision support model considers</h2>
               <p className="article-p">
-                Traditional cutoff portals often display long, unsorted PDF lists that force students to manually sift through hundreds of codes. CET Sathi calculates a <em>Preference Match Score</em> (0–100) based on five multi-criteria factors:
+                Traditional cutoff portals often display long, unsorted PDF lists that force students to manually sift through hundreds of codes. CETPath calculates a <em>Preference Match Score</em> (0–100) based on five multi-criteria factors:
               </p>
 
               <div className="factors-table-card">
@@ -141,7 +141,7 @@ export default function MethodologyPage() {
             <article className="method-article card">
               <h2 className="article-title">5. Future roadmap</h2>
               <p className="article-p">
-                As CET Sathi progresses beyond this static prototype, the planned evolution includes:
+                As CETPath progresses beyond this static prototype, the planned evolution includes:
               </p>
               <ul className="future-list">
                 <li>Ingestion of verified CET Cell merit lists and closing ranks from prior academic cycles.</li>

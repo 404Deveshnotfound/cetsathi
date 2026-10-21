@@ -1,10 +1,10 @@
-# CET Sathi — Web Prototype
+# CETPath — Web Prototype
 
 A calm, student-friendly static website prototype for Maharashtra MHT-CET engineering admissions planning. Built strictly according to the `design.md` specifications.
 
 ## Overview
 
-CET Sathi helps candidates and their families compare college–branch options and organize a thoughtful CAP preference list using cutoff context, fees, location, autonomy, and personal priorities.
+CETPath helps candidates and their families compare college–branch options and organize a thoughtful CAP preference list using cutoff context, fees, location, autonomy, and personal priorities.
 
 - **Decision support first:** Focus on calibrated recommendations, comparisons, cutoff context, and CAP updates.
 - **Explain recommendations:** Demonstrates why each option appears and highlights key trade-offs.
