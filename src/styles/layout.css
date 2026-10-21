@@ -54,7 +54,7 @@
   align-items: center;
   justify-content: space-between;
   height: var(--header-height);
-  gap: var(--space-4);
+  gap: var(--space-3);
 }
 
 .brand-group {
@@ -63,6 +63,8 @@
   gap: var(--space-3);
   cursor: pointer;
   user-select: none;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .brand-logo-mark {
@@ -78,47 +80,54 @@
   font-weight: 700;
   font-size: 13px;
   letter-spacing: -0.02em;
+  flex-shrink: 0;
 }
 
 .brand-text-block {
   display: flex;
   flex-direction: column;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .brand-name {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--color-text-primary);
   line-height: 1.15;
   letter-spacing: -0.02em;
+  white-space: nowrap;
 }
 
 .brand-tagline {
   font-size: 11px;
   color: var(--color-text-secondary);
   line-height: 1.15;
+  white-space: nowrap;
 }
 
 /* Desktop Nav links */
 .desktop-nav {
   display: flex;
   align-items: center;
-  gap: var(--space-1);
+  gap: 2px;
+  flex-shrink: 1;
 }
 
 .nav-link-btn {
   background: transparent;
   border: none;
   color: var(--color-text-secondary);
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-sm);
   font-weight: 500;
-  padding: 8px 12px;
+  padding: 6px 10px;
   border-radius: var(--radius-md);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   transition: all 0.15s ease;
+  white-space: nowrap;
 }
 
 .nav-link-btn:hover {
@@ -150,19 +159,23 @@
 .nav-right-actions {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
+  gap: var(--space-2);
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .demo-profile-pill {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 5px 10px;
+  padding: 6px 12px;
   background-color: var(--color-surface-subtle);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-full);
   cursor: pointer;
   transition: border-color 0.15s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .demo-profile-pill:hover {
@@ -174,22 +187,34 @@
   height: 7px;
   border-radius: 50%;
   background-color: var(--color-safer);
+  flex-shrink: 0;
 }
 
 .profile-info {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
   font-size: var(--font-size-xs);
+  white-space: nowrap;
+  line-height: 1;
 }
 
 .profile-percentile {
   font-weight: 600;
   color: var(--color-text-primary);
+  white-space: nowrap;
+  display: inline;
+}
+
+.profile-cat-separator {
+  color: var(--color-text-muted);
+  font-size: 11px;
 }
 
 .profile-cat {
   color: var(--color-text-secondary);
+  white-space: nowrap;
+  display: inline;
 }
 
 .mobile-menu-btn {
@@ -875,6 +900,106 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
+}
+
+/* Dashboard Compressed Recommended Cards */
+.dash-compressed-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dash-compressed-card {
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.dash-compressed-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-1px);
+}
+
+.dash-compressed-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  flex: 1;
+}
+
+.dash-compressed-rank {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-primary);
+  background-color: var(--color-primary-subtle);
+  border: 1px solid var(--color-primary-border);
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dash-compressed-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.dash-compressed-tags {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.dash-compressed-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.25;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dash-compressed-branch {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dash-compressed-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.dash-compressed-arrow {
+  color: var(--color-text-muted);
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.dash-compressed-card:hover .dash-compressed-arrow {
+  color: var(--color-primary);
+  transform: translate(2px, -2px);
 }
 
 /* Dash Preference Preview Card */
@@ -3260,6 +3385,23 @@
 
   .strategy-grid {
     grid-template-columns: 1fr;
+  }
+
+  .dash-compressed-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .dash-compressed-left {
+    width: 100%;
+  }
+
+  .dash-compressed-right {
+    width: 100%;
+    justify-content: space-between;
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--color-border-subtle);
   }
 
   .cta-banner-card {

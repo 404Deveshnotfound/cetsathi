@@ -1,24 +1,18 @@
 import React from 'react';
-import { SlidersHorizontal, ArrowRight, ArrowUpRight, GitCompare, Bookmark, CheckCircle2, AlertCircle, FileText, CalendarDays } from 'lucide-react';
+import { SlidersHorizontal, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { useApp } from '../context/AppContext';
-import RecommendationCard from '../components/RecommendationCard';
 import StatusTag from '../components/StatusTag';
-import EmptyState from '../components/EmptyState';
-import { formatPercentile, formatCurrency } from '../utils/formatters';
+import { formatPercentile } from '../utils/formatters';
 import { CAP_UPDATES } from '../data/mockData';
 
 export default function DashboardPage() {
   const {
     navigate,
     profile,
-    recommendations,
-    preferenceList,
-    removeFromPreferenceList,
-    compareList,
-    removeFromCompare
+    recommendations
   } = useApp();
 
-  const topRecommendations = recommendations.slice(0, 3);
+  const topRecommendations = recommendations.slice(0, 5);
 
   // Profile completeness check
   const calculateCompleteness = () => {
@@ -43,7 +37,7 @@ export default function DashboardPage() {
               <span className="badge badge-demo">Student Planning Workspace</span>
               <h1 className="dash-title">Your CET planning overview</h1>
               <p className="dash-subtitle">
-                Review your profile snapshot, saved options, top recommendations, and sample CAP updates.
+                Review your profile snapshot, top recommended options, and sample CAP updates.
               </p>
             </div>
 
@@ -91,7 +85,7 @@ export default function DashboardPage() {
         <div className="dashboard-grid">
           {/* Main Column (8 cols) */}
           <main className="dashboard-main-col">
-            {/* 1. Recommended Options */}
+            {/* Top Recommended Options (Compressed format) */}
             <section className="dash-section">
               <div className="dash-section-head">
                 <div>
@@ -109,148 +103,47 @@ export default function DashboardPage() {
                 </button>
               </div>
 
-              <div className="dash-rec-list">
-                {topRecommendations.map((rec, index) => (
-                  <RecommendationCard
-                    key={rec.id}
-                    recommendation={rec}
-                    rank={index + 1}
-                  />
-                ))}
-              </div>
-            </section>
-
-            {/* 2. Preference List Snapshot */}
-            <section className="dash-section">
-              <div className="dash-section-head">
-                <div>
-                  <h2 className="dash-section-title">Saved preference list</h2>
-                  <p className="dash-section-subtitle">
-                    You have {preferenceList.length} college–branch option{preferenceList.length === 1 ? '' : 's'} organized.
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  className="btn btn-secondary btn-sm"
-                  onClick={() => navigate('preference-list')}
-                >
-                  <Bookmark size={14} aria-hidden="true" />
-                  <span>Open full preference list</span>
-                </button>
-              </div>
-
-              {preferenceList.length === 0 ? (
-                <EmptyState
-                  icon={Bookmark}
-                  title="No options saved yet"
-                  description="Browse recommendations or search colleges to add options to your CAP preference sequence."
-                  actionText="Browse recommendations"
-                  onAction={() => navigate('recommendations')}
-                />
-              ) : (
-                <div className="dash-pref-card card">
-                  <div className="dash-pref-items-preview">
-                    {preferenceList.slice(0, 4).map((item, idx) => (
-                      <div key={item.id} className="dash-pref-mini-row">
-                        <div className="mini-rank tabular">{idx + 1 < 10 ? `0${idx + 1}` : idx + 1}</div>
-                        <div className="mini-details">
-                          <strong className="mini-name">{item.collegeName}</strong>
-                          <span className="mini-sub">{item.branch} · {item.location}</span>
-                        </div>
-                        <div className="mini-stats">
-                          <StatusTag status={item.fitLabel} size="sm" />
-                          <span className="mini-cutoff tabular">{formatPercentile(item.sampleCutoff)}</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="dash-pref-card-footer">
-                    <span className="footer-count-text">
-                      Showing {Math.min(4, preferenceList.length)} of {preferenceList.length} saved options
-                    </span>
-                    <button
-                      type="button"
-                      className="btn btn-ghost btn-sm"
-                      onClick={() => navigate('preference-list')}
+              <div className="dash-compressed-list">
+                {topRecommendations.map((rec, index) => {
+                  const rankNum = index + 1;
+                  const formattedRank = rankNum < 10 ? `0${rankNum}` : `${rankNum}`;
+                  return (
+                    <article
+                      key={rec.id}
+                      className="dash-compressed-card card"
+                      onClick={() => navigate('college-detail', rec.collegeId)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => e.key === 'Enter' && navigate('college-detail', rec.collegeId)}
+                      aria-label={`${formattedRank}: ${rec.collegeName}, ${rec.branch}`}
                     >
-                      Reorder & manage <ArrowRight size={14} aria-hidden="true" />
-                    </button>
-                  </div>
-                </div>
-              )}
-            </section>
+                      <div className="dash-compressed-left">
+                        <div className="dash-compressed-rank tabular" aria-label={`Option ${formattedRank}`}>
+                          {formattedRank}
+                        </div>
+                        <div className="dash-compressed-info">
+                          <div className="dash-compressed-tags">
+                            <StatusTag status={rec.fitLabel} size="sm" />
+                            <span className="badge badge-neutral">{rec.autonomy}</span>
+                            <span className="badge badge-neutral">{rec.type}</span>
+                          </div>
+                          <h3 className="dash-compressed-name">{rec.collegeName}</h3>
+                          <div className="dash-compressed-branch">{rec.branch}</div>
+                        </div>
+                      </div>
 
-            {/* 3. Compare Shortlist */}
-            <section className="dash-section">
-              <div className="dash-section-head">
-                <div>
-                  <h2 className="dash-section-title">Side-by-side comparison ({compareList.length}/3)</h2>
-                  <p className="dash-section-subtitle">
-                    Quickly evaluate trade-offs between your shortlisted choices.
-                  </p>
-                </div>
-                {compareList.length > 0 && (
-                  <button
-                    type="button"
-                    className="btn btn-secondary btn-sm"
-                    onClick={() => navigate('compare')}
-                  >
-                    <GitCompare size={14} aria-hidden="true" />
-                    <span>View full comparison</span>
-                  </button>
-                )}
+                      <div className="dash-compressed-right">
+                        <div className="rec-score-box">
+                          <span className="rec-score-label">Preference match</span>
+                          <span className="rec-score-val tabular">{rec.preferenceMatchScore}/100</span>
+                          <span className="rec-score-sub">demo score</span>
+                        </div>
+                        <ArrowUpRight size={16} className="dash-compressed-arrow" aria-hidden="true" />
+                      </div>
+                    </article>
+                  );
+                })}
               </div>
-
-              {compareList.length === 0 ? (
-                <EmptyState
-                  icon={GitCompare}
-                  title="No colleges selected for comparison"
-                  description="Click 'Compare' on any recommendation or college card to compare up to 3 options."
-                  actionText="Explore colleges"
-                  onAction={() => navigate('colleges')}
-                />
-              ) : (
-                <div className="dash-compare-grid">
-                  {compareList.map((item) => (
-                    <div key={`${item.collegeId}-${item.branch}`} className="dash-compare-card card">
-                      <div className="dash-compare-top">
-                        <StatusTag status={item.fitLabel} size="sm" />
-                        <button
-                          type="button"
-                          className="btn-icon-subtle"
-                          title="Remove from comparison"
-                          onClick={() => removeFromCompare(item.collegeId, item.branch)}
-                        >
-                          ✕
-                        </button>
-                      </div>
-                      <h4 className="dash-compare-name">{item.collegeName}</h4>
-                      <p className="dash-compare-branch">{item.branch}</p>
-                      <div className="dash-compare-facts">
-                        <div className="fact-line">
-                          <span>Cutoff:</span>
-                          <strong className="tabular">{formatPercentile(item.sampleCutoff)}</strong>
-                        </div>
-                        <div className="fact-line">
-                          <span>Tuition:</span>
-                          <strong className="tabular">{formatCurrency(item.indicativeFee)}</strong>
-                        </div>
-                        <div className="fact-line">
-                          <span>Location:</span>
-                          <span>{item.location}</span>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                  {compareList.length < 3 && (
-                    <div className="dash-compare-placeholder card" onClick={() => navigate('colleges')} role="button" tabIndex={0}>
-                      <span className="placeholder-add">+ Add option to compare</span>
-                      <span className="placeholder-sub">Up to 3 options</span>
-                    </div>
-                  )}
-                </div>
-              )}
             </section>
           </main>
 

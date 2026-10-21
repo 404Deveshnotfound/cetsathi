@@ -70,6 +70,7 @@ export default function TopNavigation() {
             <div className="profile-dot" aria-hidden="true" />
             <div className="profile-info">
               <span className="profile-percentile tabular">{formatPercentile(profile.percentile)} %ile</span>
+              <span className="profile-cat-separator">·</span>
               <span className="profile-cat">{profile.category}</span>
             </div>
           </div>
